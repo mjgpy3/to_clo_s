@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.summary = 'Property based value generators for Ruby!'
   s.description = 'Your wildest dreams have come true! A mechanism to convert Ruby objects into strings of clojure!'
   s.files = ['lib/to_clo_s.rb',
-             'spec/lib/generator/to_clo_s_spec.rb',
+             'spec/lib/to_clo_s_spec.rb',
              'README.md']
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rubocop'
