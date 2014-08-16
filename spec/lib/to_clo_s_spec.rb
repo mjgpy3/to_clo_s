@@ -2,7 +2,8 @@ require './lib/to_clo_s.rb'
 
 {
   Object => -> { Object.new },
-  Symbol => -> { :some_symbol }
+  Symbol => -> { :some_symbol },
+  'An Empty Hash' => -> { {} }
 }.each do |things_name, thing_builder|
 
   describe things_name do
