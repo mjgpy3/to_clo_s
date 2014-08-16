@@ -19,3 +19,18 @@ require './lib/to_clo_s.rb'
   end
 
 end
+
+describe Hash do
+
+  describe '#to_clo_s' do
+    subject { hash.to_clo_s }
+
+    context 'when a single association' do
+      let(:hash) { { foo: :bar } }
+
+      it { is_expected.to_not include('=>') }
+    end
+
+  end
+
+end
