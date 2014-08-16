@@ -25,6 +25,12 @@ describe Hash do
   describe '#to_clo_s' do
     subject { hash.to_clo_s }
 
+    context 'when multiple associations' do
+      let(:hash) { { foo: :bar, spam: :eggs } }
+
+      it { is_expected.to eq('{:foo :bar :spam :eggs}') }
+    end
+
     context 'when a single association' do
       let(:hash) { { foo: :bar } }
 
