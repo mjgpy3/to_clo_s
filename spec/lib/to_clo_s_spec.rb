@@ -31,7 +31,19 @@ describe Hash do
       it { is_expected.to_not include('=>') }
       it { is_expected.to include(' ') }
 
-      context 'and a key or value contains the rocket symbol' do
+      context 'and a key or value is an empty hash' do
+        let(:hash) { { {} => :val } }
+
+        it { is_expected.to eq('{{} :val}') }
+      end
+
+      context 'and a key or value is a hash with a key-value pair' do
+        let(:hash) { { { foo: :bar } => :val } }
+
+        it { is_expected.to eq('{{:foo :bar} :val}') }
+      end
+
+      context 'and a key or value is a string that contains the rocket symbol' do
         let(:hash) { { '=>' => 'val' } }
 
         it { is_expected.to eq('{"=>" "val"}') }
