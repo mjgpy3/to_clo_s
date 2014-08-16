@@ -3,7 +3,7 @@ require './lib/to_clo_s.rb'
 {
   Object => -> { Object.new },
   Symbol => -> { :some_symbol },
-  'An Empty Hash' => -> { {} },
+  'An empty hash' => -> { {} },
   'An array with a bunch of weird things' => -> { [42, 42.42, {}, :foobar, [], "Bears, Beets, Battlestar Galactica"] }
 }.each do |things_name, thing_builder|
 
@@ -29,6 +29,14 @@ describe Hash do
       let(:hash) { { foo: :bar } }
 
       it { is_expected.to_not include('=>') }
+      it { is_expected.to include(' ') }
+
+      context 'and a key or value contains the rocket symbol' do
+        let(:hash) { { '=>' => 'val' } }
+
+        it { is_expected.to eq('{"=>" "val"}') }
+      end
+
     end
 
   end
