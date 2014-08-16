@@ -62,7 +62,18 @@ describe Hash do
 
 end
 
+describe NilClass do
+
+  describe '#to_clo_s' do
+    subject { nil.to_clo_s }
+
+    it { is_expected.to eq('nil') }
+  end
+
+end
+
 describe Set do
+
   describe '#to_clo_s' do
     subject { array.to_set.to_clo_s }
 
