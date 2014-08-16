@@ -1,4 +1,5 @@
 require './lib/to_clo_s.rb'
+require 'set'
 
 {
   Object => -> { Object.new },
@@ -53,6 +54,43 @@ describe Hash do
         let(:hash) { { '=>' => 'val' } }
 
         it { is_expected.to eq('{"=>" "val"}') }
+      end
+
+    end
+
+  end
+
+end
+
+describe Set do
+  describe '#to_clo_s' do
+    subject { array.to_set.to_clo_s }
+
+    context 'when empty' do
+      let(:array) { [] }
+
+      it { is_expected.to eq('#{}') }
+    end
+
+    context 'when containing multiple elements' do
+      let(:array) { [:foobar, { spam: :eggs } ] }
+
+      it { is_expected.to eq('#{:foobar {:spam :eggs}}') }
+    end
+
+    context 'when containing one element' do
+      let(:array) { [element] }
+
+      context 'which is a hash with an association' do
+        let(:element) { { foo: :bar } }
+
+        it { is_expected.to eq('#{{:foo :bar}}') }
+      end
+
+      context 'which is numeric' do
+        let(:element) { 42 }
+
+        it { is_expected.to eq('#{42}') }
       end
 
     end

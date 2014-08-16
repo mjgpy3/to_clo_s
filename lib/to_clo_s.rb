@@ -11,3 +11,9 @@ class Hash
     '}'
   end
 end
+
+class Set
+  def to_clo_s
+    "\#{#{map(&:to_clo_s).join(' ')}}"
+  end
+end
