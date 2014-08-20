@@ -5,7 +5,6 @@ require 'set'
   Object => -> { Object.new },
   Symbol => -> { :some_symbol },
   'An empty hash' => -> { {} },
-  'An array with a bunch of weird things' => -> { [42, 42.42, {}, :foobar, [], "Bears, Beets, Battlestar Galactica"] }
 }.each do |things_name, thing_builder|
 
   describe things_name do
@@ -68,6 +67,45 @@ describe NilClass do
     subject { nil.to_clo_s }
 
     it { is_expected.to eq('nil') }
+  end
+
+end
+
+describe Array do
+
+  describe '#to_clo_s' do
+    subject { array.to_clo_s }
+
+    context 'when empty' do
+      let(:array) { [] }
+
+      it { is_expected.to eq('[]') }
+    end
+
+    context 'when containing a simple primitive' do
+      let(:array) { [42] }
+
+      it { is_expected.to eq('[42]') }
+    end
+
+    context 'when containing an empty hash' do
+      let(:array) { [{}] }
+
+      it { is_expected.to eq('[{}]') }
+    end
+
+    context 'when containing a hash with an association' do
+      let(:array) { [{ foo: :bar }] }
+
+      it { is_expected.to eq('[{:foo :bar}]') }
+    end
+
+    context 'when containing multiple hashes with multiple associations' do
+      let(:array) { [{ foo: :bar, spam: :eggs }, { 42 => :answer, "what is?" => :the_question}] }
+
+      it { is_expected.to eq('[{:foo :bar :spam :eggs} {42 :answer "what is?" :the_question}]') }
+    end
+
   end
 
 end
